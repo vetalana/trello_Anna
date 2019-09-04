@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.trello.qa.BoardCreationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-09-04T15:14:32" hostname="LAPTOP-1TKK71FQ" time="10.01">
+  <properties/>
+  <testcase name="testBoardCreation" classname="com.trello.qa.BoardCreationTest" time="10.01"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Starting ChromeDriver 76.0.3809.68 (420c9498db8ce8fcd190a954d51297672c1515d5-refs/branch-heads/3809@{#864}) on port 47839
+Only local connections are allowed.
+Please protect ports used by ChromeDriver and related test frameworks to prevent access by malicious code.
+Sep 04, 2019 6:14:24 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+]]></system-err>
+</testsuite>
