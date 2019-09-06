@@ -50,4 +50,41 @@ public class TestBase {
         driver.quit();
     }
 
+    public boolean isUserLoggedIn() {
+        return isElementPresent(By.cssSelector("[data-test-id='header-member-menu-button']"));
+    }
+
+    public boolean isElementPresent(By locator) {
+
+        return driver.findElements(locator).size() > 0;
+    }
+
+    public void clickOnPlusButtonOnHeader() {
+        click(By.name("add"));
+    }
+
+    public void selectCreateBoardFromDropDown() {
+
+        click(By.cssSelector("[data-test-id=header-create-board-button]"));
+    }
+
+    public void fillBoardCreationForm(String boardName, String s) {
+        type(By.cssSelector("[data-test-id=header-create-board-title-input]"), boardName );
+    }
+
+    public void confirmBoardCreation() {
+        click(By.cssSelector("[type=button]"));
+
+    }
+    public void clickContinueButton() {
+        click(By.cssSelector("[type=submit]"));
+    }
+
+    public void fillTeamCreationForm(String teamName, String description) {
+        type(By.cssSelector("[data-test-id='header-create-team-name-input']"), teamName);
+        type(By.cssSelector("textarea"), description);
+    }
+    public void selectCreateTeamFromDropDown() {
+        click(By.cssSelector("[data-test-id='header-create-team-button']"));
+    }
 }
