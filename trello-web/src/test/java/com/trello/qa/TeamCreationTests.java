@@ -2,16 +2,35 @@ package com.trello.qa;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class TeamCreationTests extends TestBase {
+    @BeforeClass
+    public void ensurePreconditionsLogin(){
+        if(!isUserLoggedIn()){
+            login("annabalabuha77@gmail.com", "annadorosh77");
+        }
+    }
+    @BeforeMethod
+    public void isOnHomePage() throws InterruptedException {
+        if(!isTherePersonalBoards()){
+            returnToHomePage();
+        }
+    }
+
+    public boolean isTherePersonalBoards() {
+        return isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
+    }
+
     @Test
     public void testTeamCreation() throws InterruptedException {
         int before = getTeamsCount();
         Assert.assertTrue(isUserLoggedIn());
         clickOnPlusButtonOnHeader();
         selectCreateTeamFromDropDown();
-        String teamName = "qa21";
+        String teamName = "qa21-"+System.currentTimeMillis();
         fillTeamCreationForm(teamName, "descr qa 21");
         clickContinueButton();
         String createdTeamName = getTeamNameFromTeamPage();
@@ -52,11 +71,6 @@ public class TeamCreationTests extends TestBase {
         Assert.assertEquals(after, before + 1);
         Assert.assertEquals(createdTeamName, teamName);
 
-    }
-
-    private void clickOnPlusButtonOnLeftNavMenu() {
-
-        click(By.cssSelector(".icon-add.icon-sm"));
     }
 
 }

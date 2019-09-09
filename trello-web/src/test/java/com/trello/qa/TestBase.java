@@ -3,6 +3,8 @@ package com.trello.qa;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -95,18 +97,41 @@ public class TestBase {
         return driver.findElement(By.cssSelector("h1")).getText();
     }
 
-    protected void returnToHomePage() throws InterruptedException {
+    public void returnToHomePage() throws InterruptedException {
         click(By.cssSelector("a[href='/']"));
         Thread.sleep(3000);
     }
 
-    public int getTeamsCount() throws InterruptedException {
-        Thread.sleep(3000);
+    public int getTeamsCount()  {
+       // Thread.sleep(3000);
+       new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(
+               By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li")));
         return driver.findElements(By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li")).size();
     }
 
     public void clickXButton() {
 
+    }
+
+    public void clickOnPlusButtonOnLeftNavMenu() {
+
+        click(By.cssSelector(".icon-add.icon-sm"));
+    }
+
+    public String getBoardNameFromBoardPage() {
+        return driver.findElement(By.cssSelector(".js-board-editing-target")).getText();
+    }
+
+    public void returnFromBoardToHomePage() throws InterruptedException {
+        Thread.sleep(3000);
+        click(By.cssSelector("[name=house]"));
+        click(By.cssSelector("[name=house]"));
+
+    }
+
+    public int getBoardsCount() throws InterruptedException {
+        Thread.sleep(5000);
+        return driver.findElements(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")).size()-1;
     }
 }
 

@@ -19,27 +19,10 @@ public class BoardCreationTest extends TestBase {
         confirmBoardCreation();
         returnFromBoardToHomePage();
         String createdBoardName = getBoardNameFromBoardPage();
-
         int after = getBoardsCount();
         Assert.assertEquals(createdBoardName, boardName);
         Assert.assertEquals(after, before + 1);
     }
 
-    public String getBoardNameFromBoardPage() {
-        return driver.findElement(By.cssSelector(".js-board-editing-target")).getText();
-    }
-
-    public void returnFromBoardToHomePage() throws InterruptedException {
-        Thread.sleep(3000);
-        click(By.cssSelector("[name=house]"));
-        click(By.cssSelector("[name=house]"));
-
-    }
-
-
-    public int getBoardsCount() throws InterruptedException {
-        Thread.sleep(5000);
-        return driver.findElements(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")).size()-1;
-    }
 
 }
