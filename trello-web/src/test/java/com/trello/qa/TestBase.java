@@ -69,13 +69,14 @@ public class TestBase {
     }
 
     public void fillBoardCreationForm(String boardName, String s) {
-        type(By.cssSelector("[data-test-id=header-create-board-title-input]"), boardName );
+        type(By.cssSelector("[data-test-id=header-create-board-title-input]"), boardName);
     }
 
     public void confirmBoardCreation() {
         click(By.cssSelector("[type=button]"));
 
     }
+
     public void clickContinueButton() {
         click(By.cssSelector("[type=submit]"));
     }
@@ -84,7 +85,29 @@ public class TestBase {
         type(By.cssSelector("[data-test-id='header-create-team-name-input']"), teamName);
         type(By.cssSelector("textarea"), description);
     }
+
     public void selectCreateTeamFromDropDown() {
         click(By.cssSelector("[data-test-id='header-create-team-button']"));
     }
+
+    protected String getTeamNameFromTeamPage() {
+
+        return driver.findElement(By.cssSelector("h1")).getText();
+    }
+
+    protected void returnToHomePage() throws InterruptedException {
+        click(By.cssSelector("a[href='/']"));
+        Thread.sleep(3000);
+    }
+
+    public int getTeamsCount() throws InterruptedException {
+        Thread.sleep(3000);
+        return driver.findElements(By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li")).size();
+    }
+
+    public void clickXButton() {
+
+    }
 }
+
+
