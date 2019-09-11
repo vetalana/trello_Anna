@@ -2,6 +2,7 @@ package com.trello.qa;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -97,15 +98,15 @@ public class TestBase {
         return driver.findElement(By.cssSelector("h1")).getText();
     }
 
-    public void returnToHomePage() throws InterruptedException {
+    public void returnToHomePage()  {
         click(By.cssSelector("a[href='/']"));
-        Thread.sleep(3000);
+
     }
 
-    public int getTeamsCount()  {
-       // Thread.sleep(3000);
+    public int getTeamsCount() /*throws InterruptedException*/ {
+       // Thread.sleep(5000);
        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(
-               By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li")));
+              By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li")));
         return driver.findElements(By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li")).size();
     }
 
@@ -124,6 +125,8 @@ public class TestBase {
 
     public void returnFromBoardToHomePage() throws InterruptedException {
         Thread.sleep(3000);
+        //new WebDriverWait(driver,10).
+             //   until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[name=house]"))));
         click(By.cssSelector("[name=house]"));
         click(By.cssSelector("[name=house]"));
 
@@ -131,7 +134,52 @@ public class TestBase {
 
     public int getBoardsCount() throws InterruptedException {
         Thread.sleep(5000);
+    //    new WebDriverWait(driver,10).
+       //         until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")));
         return driver.findElements(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")).size()-1;
+    }
+
+    public void clickOnDeleteButton()  {
+
+        click(By.cssSelector(".js-delete"));
+        click(By.cssSelector(".js-confirm"));
+    }
+
+    public void clickOnCloseBoard() {
+        click(By.cssSelector(".js-close-board"));
+        click(By.cssSelector(".js-confirm"));
+
+    }
+
+    public void clickOnMoreButtonInBoardMenu() {
+        WebElement menuButton = driver.findElement(By.cssSelector(".board-header-btn.mod-show-menu"));
+        System.out.println(menuButton.getCssValue("visibility"));
+        if (menuButton.getCssValue("visibility").equals("visibel")) {
+            click(By.cssSelector(".mod-show-menu"));
+            click(By.cssSelector(".js-open-more"));
+        } else {
+            click(By.cssSelector(".js-open-more"));
+        }
+    }
+
+    public void clickOnFirstPrivateBoard() {
+        click(By.xpath("//*[@class='icon-lg icon-member']/../../..//li"));
+    }
+
+    public void deleteTeam() /*throws InterruptedException*/ {
+        //Thread.sleep(5000);
+        new WebDriverWait(driver,10).
+                until(ExpectedConditions.elementToBeClickable(By.cssSelector(".quiet-button")));
+        click(By.cssSelector(".quiet-button"));
+        click(By.cssSelector(".js-confirm.full.negate"));
+    }
+
+    public void openSettings() {
+        click(By.cssSelector(".icon-gear.icon-sm.OiX3P2i2J92Xat"));
+    }
+
+    public void clickOnFirstTeam() {
+        click(By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li"));
     }
 }
 

@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TeamDeletionTest extends TestBase {
+public class BoardDeletionTest extends TestBase {
     @BeforeClass
     public void ensurePreconditionsLogin(){
         if(!isUserLoggedIn()){
@@ -24,18 +24,24 @@ public class TeamDeletionTest extends TestBase {
     }
 
     @Test
-    public void deleteTeamFromLeftNavMenu() throws InterruptedException {
-        int before = getTeamsCount();
-        while(before>3) {
-            clickOnFirstTeam();
-            openSettings();
-            deleteTeam();
-            before = getTeamsCount();
-        }
-        returnToHomePage();
-    //    int after = getTeamsCount();
-    //    Assert.assertEquals(after,before-1);
+    public void deleteBoards() throws InterruptedException {
+        int before = getBoardsCount();
+        System.out.println(before);
 
+        while(before>3) {
+            clickOnFirstPrivateBoard();
+            Thread.sleep(5000);
+            clickOnMoreButtonInBoardMenu();
+            clickOnCloseBoard();
+            clickOnDeleteButton();
+            returnToHomePage();
+            before = getBoardsCount();
+            System.out.println(before);
+        }
+
+    //    int after = getBoardsCount();
+    //    Assert.assertEquals(after,before-1);
     }
+
 
 }

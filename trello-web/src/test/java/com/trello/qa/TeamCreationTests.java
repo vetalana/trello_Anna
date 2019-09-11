@@ -14,7 +14,7 @@ public class TeamCreationTests extends TestBase {
         }
     }
     @BeforeMethod
-    public void isOnHomePage() throws InterruptedException {
+    public void isOnHomePage()  {
         if(!isTherePersonalBoards()){
             returnToHomePage();
         }
@@ -25,7 +25,7 @@ public class TeamCreationTests extends TestBase {
     }
 
     @Test
-    public void testTeamCreation() throws InterruptedException {
+    public void testTeamCreation() {
         int before = getTeamsCount();
         Assert.assertTrue(isUserLoggedIn());
         clickOnPlusButtonOnHeader();
