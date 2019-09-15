@@ -8,31 +8,31 @@ import org.testng.annotations.Test;
 public class TeamDeletionTest extends TestBase {
     @BeforeClass
     public void ensurePreconditionsLogin(){
-        if(!isUserLoggedIn()){
-            login("annabalabuha77@gmail.com", "annadorosh77");
+        if(!app.isUserLoggedIn()){
+            app.login("annabalabuha77@gmail.com", "annadorosh77");
         }
     }
     @BeforeMethod
     public void isOnHomePage()  {
         if(!isTherePersonalBoards()){
-            returnToHomePage();
+            app.returnToHomePage();
         }
     }
 
     public boolean isTherePersonalBoards() {
-        return isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
+        return app.isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
     }
 
     @Test
     public void deleteTeamFromLeftNavMenu() throws InterruptedException {
-        int before = getTeamsCount();
+        int before = app.getTeamsCount();
         while(before>3) {
-            clickOnFirstTeam();
-            openSettings();
-            deleteTeam();
-            before = getTeamsCount();
+            app.clickOnFirstTeam();
+            app.openSettings();
+            app.deleteTeam();
+            before = app.getTeamsCount();
         }
-        returnToHomePage();
+        app.returnToHomePage();
     //    int after = getTeamsCount();
     //    Assert.assertEquals(after,before-1);
 

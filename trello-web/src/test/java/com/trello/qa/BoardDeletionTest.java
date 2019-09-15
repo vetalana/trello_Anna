@@ -8,34 +8,35 @@ import org.testng.annotations.Test;
 public class BoardDeletionTest extends TestBase {
     @BeforeClass
     public void ensurePreconditionsLogin(){
-        if(!isUserLoggedIn()){
-            login("annabalabuha77@gmail.com", "annadorosh77");
+        if(!app.isUserLoggedIn()){
+            app.login("annabalabuha77@gmail.com", "annadorosh77");
         }
     }
     @BeforeMethod
     public void isOnHomePage()  {
         if(!isTherePersonalBoards()){
-            returnToHomePage();
+            app.returnToHomePage();
         }
     }
 
     public boolean isTherePersonalBoards() {
-        return isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
+        return app.isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
     }
 
     @Test
     public void deleteBoards() throws InterruptedException {
-        int before = getBoardsCount();
+        int before = app.getBoardsCount();
         System.out.println(before);
 
         while(before>3) {
-            clickOnFirstPrivateBoard();
+            app.clickOnFirstPrivateBoard();
             Thread.sleep(5000);
-            clickOnMoreButtonInBoardMenu();
-            clickOnCloseBoard();
-            clickOnDeleteButton();
-            returnToHomePage();
-            before = getBoardsCount();
+            app.clickOnMoreButtonInBoardMenu();
+            app.clickOnCloseBoard();
+            app.clickOnDeleteButton();
+            Thread.sleep(5000);
+            app.returnToHomePage();
+            before = app.getBoardsCount();
             System.out.println(before);
         }
 

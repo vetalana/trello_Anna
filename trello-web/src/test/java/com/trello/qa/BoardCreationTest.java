@@ -10,35 +10,35 @@ import org.testng.annotations.Test;
 public class BoardCreationTest extends TestBase {
     @BeforeClass
     public void ensurePreconditionsLogin(){
-        if(!isUserLoggedIn()){
-            login("annabalabuha77@gmail.com", "annadorosh77");
+        if(!app.isUserLoggedIn()){
+            app.login("annabalabuha77@gmail.com", "annadorosh77");
         }
     }
     @BeforeMethod
     public void isOnHomePage()  {
         if(!isTherePersonalBoards()){
-            returnToHomePage();
+            app.returnToHomePage();
         }
     }
 
     public boolean isTherePersonalBoards() {
-        return isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
+        return app.isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
     }
 
     @Test
     public void testBoardCreation() throws InterruptedException {
-        int before = getBoardsCount();
-        Assert.assertTrue(isUserLoggedIn());
-        clickOnPlusButtonOnHeader();
-        selectCreateBoardFromDropDown();
+        int before = app.getBoardsCount();
+        Assert.assertTrue(app.isUserLoggedIn());
+        app.clickOnPlusButtonOnHeader();
+        app.selectCreateBoardFromDropDown();
         String boardName = "My board";
-        fillBoardCreationForm(boardName, "descr qa 21");
-        click(By.cssSelector("._1vk4y48RR5OmqE"));
-        click(By.xpath("//span[contains(text(),'No team')]"));
-        confirmBoardCreation();
-        returnFromBoardToHomePage();
-        String createdBoardName = getBoardNameFromBoardPage();
-        int after = getBoardsCount();
+        app.fillBoardCreationForm(boardName, "descr qa 21");
+        app.click(By.cssSelector("._1vk4y48RR5OmqE"));
+        app.click(By.xpath("//span[contains(text(),'No team')]"));
+        app.confirmBoardCreation();
+        app.returnFromBoardToHomePage();
+        String createdBoardName = app.getBoardNameFromBoardPage();
+        int after = app.getBoardsCount();
         Assert.assertEquals(createdBoardName, boardName);
         Assert.assertEquals(after, before + 1);
     }
