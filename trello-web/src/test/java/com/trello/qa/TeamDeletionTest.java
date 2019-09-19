@@ -8,31 +8,31 @@ import org.testng.annotations.Test;
 public class TeamDeletionTest extends TestBase {
     @BeforeClass
     public void ensurePreconditionsLogin(){
-        if(!app.isUserLoggedIn()){
-            app.login("annabalabuha77@gmail.com", "annadorosh77");
+        if(!app.getSessionHelper().isUserLoggedIn()){
+            app.getSessionHelper().login("annabalabuha77@gmail.com", "annadorosh77");
         }
     }
     @BeforeMethod
     public void isOnHomePage()  {
         if(!isTherePersonalBoards()){
-            app.returnToHomePage();
+            app.getTeamHelper().returnToHomePage();
         }
     }
 
     public boolean isTherePersonalBoards() {
-        return app.isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
+        return app.getTeamHelper().isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
     }
 
     @Test
     public void deleteTeamFromLeftNavMenu() throws InterruptedException {
-        int before = app.getTeamsCount();
+        int before = app.getTeamHelper().getTeamsCount();
         while(before>3) {
-            app.clickOnFirstTeam();
-            app.openSettings();
-            app.deleteTeam();
-            before = app.getTeamsCount();
+            app.getTeamHelper().clickOnFirstTeam();
+            app.getTeamHelper().openSettings();
+            app.getTeamHelper().deleteTeam();
+            before = app.getTeamHelper().getTeamsCount();
         }
-        app.returnToHomePage();
+        app.getTeamHelper().returnToHomePage();
     //    int after = getTeamsCount();
     //    Assert.assertEquals(after,before-1);
 

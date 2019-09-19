@@ -11,173 +11,37 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     WebDriver driver;
+    TeamHelper teamHelper;
+    BoardHelper boardHelper;
+    SessionHelper sessionHelper;
 
     public void init() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();
+        teamHelper = new TeamHelper(driver);
+        boardHelper = new BoardHelper(driver);
+        sessionHelper = new SessionHelper(driver);
 
-        openSite("https://trello.com");
-        login("annabalabuha77@gmail.com", "annadorosh77");
+        sessionHelper.openSite("https://trello.com");
+        sessionHelper.login("annabalabuha77@gmail.com", "annadorosh77");
     }
 
-    public void login(String email, String password) {
-        click(By.cssSelector("[href='/login']"));
-        type(By.cssSelector("[type=email]"), email);
-        type(By.cssSelector("[type=password]"), password);
-        click(By.id("login"));
+    public TeamHelper getTeamHelper() {
+        return teamHelper;
     }
 
-    public void waitForElementAndClick(By locator, int time){
-       new WebDriverWait(driver, time).
-               until(ExpectedConditions.elementToBeClickable(locator)).click();
+    public BoardHelper getBoardHelper() {
+        return boardHelper;
     }
 
-    public void click(By locator) {
-
-        driver.findElement(locator).click();
-    }
-
-    public void type(By locator, String text) {
-        driver.findElement(locator).click();
-        driver.findElement(locator).clear();
-        driver.findElement(locator).sendKeys(text);
-    }
-
-    public void openSite(String url) {
-        driver.get(url);
+    public SessionHelper getSessionHelper() {
+        return sessionHelper;
     }
 
     public void stop() {
         driver.quit();
-    }
-
-    public boolean isUserLoggedIn() {
-        return isElementPresent(By.cssSelector("[data-test-id='header-member-menu-button']"));
-    }
-
-    public boolean isElementPresent(By locator) {
-
-        return driver.findElements(locator).size() > 0;
-    }
-
-    public void clickOnPlusButtonOnHeader() {
-        click(By.name("add"));
-    }
-
-    public void selectCreateBoardFromDropDown() {
-
-        click(By.cssSelector("[data-test-id=header-create-board-button]"));
-    }
-
-    public void fillBoardCreationForm(String boardName, String s) {
-        type(By.cssSelector("[data-test-id=header-create-board-title-input]"), boardName);
-    }
-
-    public void confirmBoardCreation() {
-        click(By.cssSelector("[type=button]"));
 
     }
 
-    public void clickContinueButton() {
-        click(By.cssSelector("[type=submit]"));
-    }
-
-    public void fillTeamCreationForm(String teamName, String description) {
-        type(By.cssSelector("[data-test-id='header-create-team-name-input']"), teamName);
-        type(By.cssSelector("textarea"), description);
-    }
-
-    public void selectCreateTeamFromDropDown() {
-        click(By.cssSelector("[data-test-id='header-create-team-button']"));
-    }
-
-    protected String getTeamNameFromTeamPage() {
-
-        return driver.findElement(By.cssSelector("h1")).getText();
-    }
-
-    public void returnToHomePage()  {
-        waitForElementAndClick(By.cssSelector("[name=house]"),20);
-
-    }
-
-    public int getTeamsCount() /*throws InterruptedException*/ {
-       // Thread.sleep(5000);
-       new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(
-              By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li")));
-        return driver.findElements(By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li")).size();
-    }
-
-    public void clickXButton() {
-
-    }
-
-    public void clickOnPlusButtonOnLeftNavMenu() {
-
-        click(By.cssSelector(".icon-add.icon-sm"));
-    }
-
-    public String getBoardNameFromBoardPage() {
-        return driver.findElement(By.cssSelector(".js-board-editing-target")).getText();
-    }
-
-    public void returnFromBoardToHomePage() throws InterruptedException {
-        Thread.sleep(3000);
-        //new WebDriverWait(driver,10).
-             //   until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[name=house]"))));
-        click(By.cssSelector("[name=house]"));
-        click(By.cssSelector("[name=house]"));
-
-    }
-
-    public int getBoardsCount() throws InterruptedException {
-        Thread.sleep(5000);
-    //    new WebDriverWait(driver,10).
-       //         until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")));
-        return driver.findElements(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")).size()-1;
-    }
-
-    public void clickOnDeleteButton()  {
-
-        click(By.cssSelector(".js-delete"));
-        click(By.cssSelector(".js-confirm"));
-    }
-
-    public void clickOnCloseBoard() {
-        click(By.cssSelector(".js-close-board"));
-        click(By.cssSelector(".js-confirm"));
-
-    }
-
-    public void clickOnMoreButtonInBoardMenu() {
-        WebElement menuButton = driver.findElement(By.cssSelector(".board-header-btn.mod-show-menu"));
-        System.out.println(menuButton.getCssValue("visibility"));
-        if (menuButton.getCssValue("visibility").equals("visibel")) {
-            click(By.cssSelector(".mod-show-menu"));
-            click(By.cssSelector(".js-open-more"));
-        } else {
-            click(By.cssSelector(".js-open-more"));
-        }
-    }
-
-    public void clickOnFirstPrivateBoard() {
-        click(By.xpath("//*[@class='icon-lg icon-member']/../../..//li"));
-    }
-
-    public void deleteTeam() /*throws InterruptedException*/ {
-        //Thread.sleep(5000);
-        //new WebDriverWait(driver,10).
-            //    until(ExpectedConditions.elementToBeClickable(By.cssSelector(".quiet-button")));
-        waitForElementAndClick(By.cssSelector(".quiet-button"),15);
-        waitForElementAndClick(By.cssSelector(".js-confirm"),15);
-    }
-
-    public void openSettings() {
-        click(By.cssSelector(".icon-gear.icon-sm.OiX3P2i2J92Xat"));
-    }
-
-    public void clickOnFirstTeam() {
-        click(By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li"));
-    }
 }

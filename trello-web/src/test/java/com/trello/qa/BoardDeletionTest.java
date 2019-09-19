@@ -7,41 +7,42 @@ import org.testng.annotations.Test;
 
 public class BoardDeletionTest extends TestBase {
     @BeforeClass
-    public void ensurePreconditionsLogin(){
-        if(!app.isUserLoggedIn()){
-            app.login("annabalabuha77@gmail.com", "annadorosh77");
+    public void ensurePreconditionsLogin() {
+        if (!app.getSessionHelper().isUserLoggedIn()) {
+            app.getSessionHelper().login("annabalabuha77@gmail.com", "annadorosh77");
         }
     }
+
     @BeforeMethod
-    public void isOnHomePage()  {
-        if(!isTherePersonalBoards()){
-            app.returnToHomePage();
+    public void isOnHomePage() {
+        if (!isTherePersonalBoards()) {
+            app.getBoardHelper().returnToHomePage();
         }
     }
 
     public boolean isTherePersonalBoards() {
-        return app.isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
+        return app.getBoardHelper().isElementPresent(By.xpath("//*[@class='icon-lg icon-member']/../../.."));
     }
 
     @Test
     public void deleteBoards() throws InterruptedException {
-        int before = app.getBoardsCount();
+        int before = app.getBoardHelper().getBoardsCount();
         System.out.println(before);
 
-        while(before>3) {
-            app.clickOnFirstPrivateBoard();
+        while (before > 3) {
+            app.getBoardHelper().clickOnFirstPrivateBoard();
             Thread.sleep(5000);
-            app.clickOnMoreButtonInBoardMenu();
-            app.clickOnCloseBoard();
-            app.clickOnDeleteButton();
+            app.getBoardHelper().clickOnMoreButtonInBoardMenu();
+            app.getBoardHelper().clickOnCloseBoard();
+            app.getBoardHelper().clickOnDeleteButton();
             Thread.sleep(5000);
-            app.returnToHomePage();
-            before = app.getBoardsCount();
+            app.getBoardHelper().returnToHomePage();
+            before = app.getBoardHelper().getBoardsCount();
             System.out.println(before);
         }
 
-    //    int after = getBoardsCount();
-    //    Assert.assertEquals(after,before-1);
+        //    int after = getBoardsCount();
+        //    Assert.assertEquals(after,before-1);
     }
 
 
