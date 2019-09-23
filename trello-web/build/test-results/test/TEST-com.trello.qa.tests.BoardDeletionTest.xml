@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.trello.qa.tests.BoardDeletionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-09-22T16:12:48" hostname="DESKTOP-HHAPKNM" time="21.237">
+<testsuite name="com.trello.qa.tests.BoardDeletionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-09-23T15:06:18" hostname="DESKTOP-HHAPKNM" time="22.869">
   <properties/>
-  <testcase name="deleteBoards" classname="com.trello.qa.tests.BoardDeletionTest" time="21.237"/>
+  <testcase name="deleteBoards" classname="com.trello.qa.tests.BoardDeletionTest" time="22.869"/>
   <system-out><![CDATA[4
 hidden
 3
