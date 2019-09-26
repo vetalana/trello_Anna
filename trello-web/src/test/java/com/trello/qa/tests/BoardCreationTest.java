@@ -8,11 +8,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 
 public class BoardCreationTest extends TestBase {
@@ -26,6 +28,7 @@ public class BoardCreationTest extends TestBase {
         list.add(new Object[]{"name", ""});
         return list.iterator();
     }
+
     @DataProvider
     public Iterator<Object[]> validBoardFromCsv() throws IOException {
         List<Object[]> list = new ArrayList<>();
@@ -33,7 +36,7 @@ public class BoardCreationTest extends TestBase {
                 new BufferedReader(new FileReader
                         (new File("src/test/resources/Board.csv")));
         String line = reader.readLine();
-        while (line!=null){
+        while (line != null) {
             String[] split = line.split(",");
             list.add(new Object[]{new BoardData()
                     .withBoardName(split[0])
@@ -81,8 +84,9 @@ public class BoardCreationTest extends TestBase {
         Assert.assertEquals(createdBoardName, boardName);
         Assert.assertEquals(after, before + 1);
     }
-    @Test(dataProvider = "validBoard" )
-    public void testBoardCreationWithDataProvider(String boardName,String s) throws InterruptedException {
+
+    @Test(dataProvider = "validBoard")
+    public void testBoardCreationWithDataProvider(String boardName, String s) throws InterruptedException {
         BoardData board = new BoardData().withBoardName(boardName).withS(s);
         int before = app.getBoardHelper().getBoardsCount();
         Assert.assertTrue(app.getSessionHelper().isUserLoggedIn());
@@ -123,7 +127,6 @@ public class BoardCreationTest extends TestBase {
         Assert.assertEquals(createdBoardName, boardName);
         Assert.assertEquals(after, before + 1);
     }*/
-
 
 
 }
