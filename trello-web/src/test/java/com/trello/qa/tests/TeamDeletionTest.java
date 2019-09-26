@@ -30,9 +30,10 @@ public class TeamDeletionTest extends TestBase {
             app.getTeamHelper().clickOnFirstTeam();
             app.getTeamHelper().openSettings();
             app.getTeamHelper().deleteTeam();
+            app.getTeamHelper().returnToHomePage();
             before = app.getTeamHelper().getTeamsCount();
         }
-        app.getTeamHelper().returnToHomePage();
+
     //    int after = getTeamsCount();
     //    Assert.assertEquals(after,before-1);
 

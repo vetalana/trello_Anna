@@ -8,11 +8,12 @@ public class SessionHelper extends HelperBase {
         super(driver);
     }
 
-    public void login(String email, String password) {
+    public void login(String email, String password){
         click(By.cssSelector("[href='/login']"));
-        type(By.cssSelector("[type=email]"), email);
-        type(By.cssSelector("[type=password]"), password);
-        click(By.id("login"));
+       waitElement(By.cssSelector("[type=email]"));
+            type(By.cssSelector("[type=email]"), email);
+            type(By.cssSelector("[type=password]"), password);
+            click(By.id("login"));
     }
 
     public void openSite(String url) {

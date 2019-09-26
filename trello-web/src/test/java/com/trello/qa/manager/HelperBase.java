@@ -43,7 +43,8 @@ public class HelperBase {
     }
 
     public void returnToHomePage()  {
-        waitForElementAndClick(By.cssSelector("[name=house]"),20);
+        waitElement(By.cssSelector("[name=house]"));
+        click(By.cssSelector("[name=house]"));
 
     }
 
@@ -51,4 +52,16 @@ public class HelperBase {
 
         click(By.cssSelector(".icon-add.icon-sm"));
     }
+
+public void waitElement(By locator){
+    int tries = 0;
+    while (!isElementPresent(locator) && tries<100){
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        tries++;
+    }
+}
 }

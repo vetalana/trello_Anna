@@ -25,8 +25,8 @@ public class TeamHelper extends HelperBase {
         click(By.cssSelector("[data-test-id='header-create-team-button']"));
     }
 
-    public String getTeamNameFromTeamPage() throws InterruptedException {
-        Thread.sleep(3000);
+    public String getTeamNameFromTeamPage()  {
+        waitElement(By.cssSelector("h1"));
         return driver.findElement(By.cssSelector("h1")).getText();
     }
 
@@ -42,15 +42,18 @@ public class TeamHelper extends HelperBase {
     }
 
     public void deleteTeam() throws InterruptedException {
-        Thread.sleep(5000);
+        waitElement(By.cssSelector(".quiet-button"));
         //new WebDriverWait(driver,10).
         //    until(ExpectedConditions.elementToBeClickable(By.cssSelector(".quiet-button")));
         click(By.cssSelector(".quiet-button"));
+        waitElement(By.cssSelector(".js-confirm"));
         click(By.cssSelector(".js-confirm"));
     }
 
-    public void openSettings() {
-        click(By.cssSelector(".icon-gear.icon-sm.OiX3P2i2J92Xat"));
+    public void openSettings() throws InterruptedException {
+        Thread.sleep(3000);
+    //   waitElement(By.xpath("//span[contains(text(),'Settings')]"));
+        click(By.xpath("//span[contains(text(),'Settings')]"));
     }
 
     public void clickOnFirstTeam() {
