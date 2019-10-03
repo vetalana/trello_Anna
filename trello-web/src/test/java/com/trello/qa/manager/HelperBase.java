@@ -28,7 +28,7 @@ public class HelperBase {
         if(text!= null){
             Thread.sleep(3000);
             driver.findElement(locator).click();
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             driver.findElement(locator).clear();
             driver.findElement(locator).sendKeys(text);
         }
