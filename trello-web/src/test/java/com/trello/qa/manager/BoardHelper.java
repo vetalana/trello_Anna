@@ -63,7 +63,7 @@ waitElement(By.cssSelector("[data-test-id=header-create-board-button]"));
         WebElement menuButton = driver.findElement(By.cssSelector(".board-header-btn.mod-show-menu"));
         System.out.println(menuButton.getCssValue("visibility"));
         if (menuButton.getCssValue("visibility").equals("visibel")) {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
          // waitElement(By.cssSelector(".mod-show-menu"));
             click(By.cssSelector(".mod-show-menu"));
             click(By.cssSelector(".js-open-more"));
