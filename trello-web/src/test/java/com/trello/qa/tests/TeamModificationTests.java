@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class TeamModificationTests extends TestBase {
     @BeforeMethod
-    public void precodition() {
+    public void precodition() throws InterruptedException {
         if (!app.getTeamHelper().isTeamsPresent()) {
             app.getTeamHelper().createTeam();
         }

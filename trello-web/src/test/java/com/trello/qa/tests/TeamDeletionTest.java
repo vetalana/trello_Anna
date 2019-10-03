@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class TeamDeletionTest extends TestBase {
     @BeforeClass
-    public void ensurePreconditionsLogin(){
+    public void ensurePreconditionsLogin() throws InterruptedException {
         if(!app.getSessionHelper().isUserLoggedIn()){
             app.getSessionHelper().login("annabalabuha77@gmail.com", "annadorosh77");
         }

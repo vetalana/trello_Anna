@@ -24,9 +24,11 @@ public class HelperBase {
         driver.findElement(locator).click();
     }
 
-    public void type(By locator, String text) {
+    public void type(By locator, String text) throws InterruptedException {
         if(text!= null){
+            Thread.sleep(3000);
             driver.findElement(locator).click();
+            Thread.sleep(3000);
             driver.findElement(locator).clear();
             driver.findElement(locator).sendKeys(text);
         }

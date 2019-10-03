@@ -8,7 +8,7 @@ public class SessionHelper extends HelperBase {
         super(driver);
     }
 
-    public void login(String email, String password){
+    public void login(String email, String password) throws InterruptedException {
         click(By.cssSelector("[href='/login']"));
        waitElement(By.cssSelector("[type=email]"));
             type(By.cssSelector("[type=email]"), email);

@@ -1,6 +1,6 @@
 package com.trello.qa.tests;
 
-import com.trello.qa.manager.BoardData;
+import com.trello.qa.model.BoardData;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -47,7 +47,7 @@ public class BoardCreationTest extends TestBase {
     }
 
     @BeforeClass
-    public void ensurePreconditionsLogin() {
+    public void ensurePreconditionsLogin() throws InterruptedException {
         if (!app.getSessionHelper().isUserLoggedIn()) {
             app.getSessionHelper().login("annabalabuha77@gmail.com", "annadorosh77");
         }
@@ -68,6 +68,7 @@ public class BoardCreationTest extends TestBase {
     public void testBoardCreation() throws InterruptedException {
         int before = app.getBoardHelper().getBoardsCount();
         Assert.assertTrue(app.getSessionHelper().isUserLoggedIn());
+        Thread.sleep(3000);
         app.getBoardHelper().clickOnPlusButtonOnHeader();
         app.getBoardHelper().selectCreateBoardFromDropDown();
         String boardName = "My board";
@@ -90,6 +91,7 @@ public class BoardCreationTest extends TestBase {
         BoardData board = new BoardData().withBoardName(boardName).withS(s);
         int before = app.getBoardHelper().getBoardsCount();
         Assert.assertTrue(app.getSessionHelper().isUserLoggedIn());
+        Thread.sleep(3000);
         app.getBoardHelper().clickOnPlusButtonOnHeader();
         app.getBoardHelper().selectCreateBoardFromDropDown();
 
@@ -106,11 +108,12 @@ public class BoardCreationTest extends TestBase {
         Assert.assertEquals(createdBoardName, boardName);
         Assert.assertEquals(after, before + 1);
     }
-   /* @Test(dataProvider = "validBoard" )
+    @Test(dataProvider = "validBoardFromCsv" )
     public void testBoardCreationWithDataProviderFromCsv(BoardData board) throws InterruptedException {
-        BoardData board = new BoardData().withBoardName(boardName).withS(s);
+       // BoardData board = new BoardData().withBoardName(boardName).withS(s);
         int before = app.getBoardHelper().getBoardsCount();
         Assert.assertTrue(app.getSessionHelper().isUserLoggedIn());
+        Thread.sleep(3000);
         app.getBoardHelper().clickOnPlusButtonOnHeader();
         app.getBoardHelper().selectCreateBoardFromDropDown();
 
@@ -124,9 +127,9 @@ public class BoardCreationTest extends TestBase {
         app.getBoardHelper().returnFromBoardToHomePage();
         String createdBoardName = app.getBoardHelper().getBoardNameFromBoardPage();
         int after = app.getBoardHelper().getBoardsCount();
-        Assert.assertEquals(createdBoardName, boardName);
-        Assert.assertEquals(after, before + 1);
-    }*/
+       // Assert.assertEquals(createdBoardName, boardName);
+       // Assert.assertEquals(after, before + 1);
+    }
 
 
 }
