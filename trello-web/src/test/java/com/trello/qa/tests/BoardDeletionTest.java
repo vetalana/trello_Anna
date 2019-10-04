@@ -24,6 +24,7 @@ public class BoardDeletionTest extends TestBase {
         System.out.println(before);
 
         while (before > 3) {
+            Thread.sleep(5000);
             app.getBoardHelper().clickOnFirstPrivateBoard();
             Thread.sleep(5000);
             app.getBoardHelper().clickOnMoreButtonInBoardMenu();
