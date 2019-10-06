@@ -1,10 +1,10 @@
 package com.trello.qa.manager;
 
+import com.trello.qa.model.TeamData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 public class TeamHelper extends HelperBase {
 
@@ -16,9 +16,11 @@ public class TeamHelper extends HelperBase {
         click(By.cssSelector("[type=submit]"));
     }
 
-    public void fillTeamCreationForm(TeamData team) {
+    public void fillTeamCreationForm(TeamData team) throws InterruptedException {
+
         type(By.cssSelector("[data-test-id='header-create-team-name-input']"), team.getTeamName());
-        type(By.cssSelector("textarea"), team.getDescription());
+        Thread.sleep(5000);
+        type(By.cssSelector("._15aIJYNKhrO4vB"), team.getDescription());
     }
 
     public void selectCreateTeamFromDropDown() {
@@ -27,7 +29,8 @@ public class TeamHelper extends HelperBase {
 
     public String getTeamNameFromTeamPage() throws InterruptedException {
         Thread.sleep(3000);
-        return driver.findElement(By.cssSelector("h1")).getText();
+        //waitElement(By.cssSelector("h1"));
+        return driver.findElement(By.xpath("//h1[@class='u-inline']")).getText();
     }
 
     public int getTeamsCount() /*throws InterruptedException*/ {
@@ -42,18 +45,22 @@ public class TeamHelper extends HelperBase {
     }
 
     public void deleteTeam() throws InterruptedException {
-        Thread.sleep(5000);
+        waitElement(By.cssSelector(".quiet-button"));
         //new WebDriverWait(driver,10).
         //    until(ExpectedConditions.elementToBeClickable(By.cssSelector(".quiet-button")));
         click(By.cssSelector(".quiet-button"));
+        waitElement(By.cssSelector(".js-confirm"));
         click(By.cssSelector(".js-confirm"));
     }
 
-    public void openSettings() {
-        click(By.cssSelector(".icon-gear.icon-sm.OiX3P2i2J92Xat"));
+    public void openSettings() throws InterruptedException {
+        Thread.sleep(3000);
+    //   waitElement(By.xpath("//span[contains(text(),'Settings')]"));
+        click(By.xpath("//span[contains(text(),'Settings')]"));
     }
 
-    public void clickOnFirstTeam() {
+    public void clickOnFirstTeam() throws InterruptedException {
+        Thread.sleep(3000);
         click(By.xpath("//*[@class='_mtkwfAlvk6O3f']/../../..//li"));
     }
 
@@ -61,7 +68,7 @@ public class TeamHelper extends HelperBase {
         click(By.cssSelector(".js-edit-profile"));
     }
 
-    public void changeTeamProfile(String name, String description) {
+    public void changeTeamProfile(String name, String description) throws InterruptedException {
         type(By.name("displayName"), name);
         type(By.name("desc"), description);
     }
@@ -75,7 +82,7 @@ public class TeamHelper extends HelperBase {
         return getTeamsCount() > 0;
     }
 
-    public void createTeam() {
+    public void createTeam() throws InterruptedException {
 
         clickOnPlusButtonOnHeader();
         selectCreateTeamFromDropDown();
@@ -86,5 +93,9 @@ public class TeamHelper extends HelperBase {
         clickContinueButton();
 
         returnToHomePage();
+    }
+
+    public void closeTeamMembersFill() {
+        click(By.xpath("//button[@class='qb90FI2uVIybRy _2b_HpRl1Tyl1YK']"));
     }
 }

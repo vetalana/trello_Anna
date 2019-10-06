@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class TeamDeletionTest extends TestBase {
     @BeforeClass
-    public void ensurePreconditionsLogin(){
+    public void ensurePreconditionsLogin() throws InterruptedException {
         if(!app.getSessionHelper().isUserLoggedIn()){
             app.getSessionHelper().login("annabalabuha77@gmail.com", "annadorosh77");
         }
@@ -30,9 +30,10 @@ public class TeamDeletionTest extends TestBase {
             app.getTeamHelper().clickOnFirstTeam();
             app.getTeamHelper().openSettings();
             app.getTeamHelper().deleteTeam();
+            app.getTeamHelper().returnToHomePage();
             before = app.getTeamHelper().getTeamsCount();
         }
-        app.getTeamHelper().returnToHomePage();
+
     //    int after = getTeamsCount();
     //    Assert.assertEquals(after,before-1);
 

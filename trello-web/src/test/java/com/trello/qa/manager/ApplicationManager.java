@@ -18,7 +18,7 @@ public class ApplicationManager {
         this.browser = browser;
     }
 
-    public void init() {
+    public void init() throws InterruptedException {
         if(browser.equals(BrowserType.CHROME)){
             driver = new ChromeDriver();
         }if(browser.equals(BrowserType.FIREFOX)){

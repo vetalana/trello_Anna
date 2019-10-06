@@ -1,5 +1,6 @@
 package com.trello.qa.manager;
 
+import com.trello.qa.model.BoardData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,12 +12,13 @@ public class BoardHelper extends HelperBase {
     }
 
     public void selectCreateBoardFromDropDown() {
-
+waitElement(By.cssSelector("[data-test-id=header-create-board-button]"));
         click(By.cssSelector("[data-test-id=header-create-board-button]"));
     }
 
-    public void fillBoardCreationForm(String boardName, String s) {
-        type(By.cssSelector("[data-test-id=header-create-board-title-input]"), boardName);
+
+    public void fillBoardCreationForm(BoardData board) throws InterruptedException {
+        type(By.cssSelector("[data-test-id=header-create-board-title-input]"), board.getBoardName());
     }
 
     public void confirmBoardCreation() {
@@ -30,6 +32,7 @@ public class BoardHelper extends HelperBase {
 
     public void returnFromBoardToHomePage() throws InterruptedException {
         Thread.sleep(3000);
+      // waitElement(By.cssSelector("[name=house]"));
         //new WebDriverWait(driver,10).
         //   until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[name=house]"))));
         click(By.cssSelector("[name=house]"));
@@ -37,8 +40,8 @@ public class BoardHelper extends HelperBase {
 
     }
 
-    public int getBoardsCount() throws InterruptedException {
-        Thread.sleep(5000);
+    public int getBoardsCount()  {
+       waitElement(By.xpath("//*[@class='icon-lg icon-member']/../../..//li"));
         //    new WebDriverWait(driver,10).
         //         until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")));
         return driver.findElements(By.xpath("//*[@class='icon-lg icon-member']/../../..//li")).size() - 1;
@@ -60,7 +63,8 @@ public class BoardHelper extends HelperBase {
         WebElement menuButton = driver.findElement(By.cssSelector(".board-header-btn.mod-show-menu"));
         System.out.println(menuButton.getCssValue("visibility"));
         if (menuButton.getCssValue("visibility").equals("visibel")) {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
+         // waitElement(By.cssSelector(".mod-show-menu"));
             click(By.cssSelector(".mod-show-menu"));
             click(By.cssSelector(".js-open-more"));
         } else {
@@ -73,10 +77,27 @@ public class BoardHelper extends HelperBase {
     }
 
 
-    public void changBoardProfile(String boardName) throws InterruptedException {
-        Thread.sleep(3000);
+    public void changBoardProfile(String boardName)  {
+       waitElement(By.cssSelector(".js-board-editing-target"));
         driver.findElement(By.cssSelector(".js-board-editing-target")).click();
-        Thread.sleep(3000);
+       waitElement(By.cssSelector(".js-board-name-input"));
         driver.findElement(By.cssSelector(".js-board-name-input")).sendKeys(boardName);
+    }
+
+    public boolean isBoardPresent()  {
+        return getBoardsCount()>0;
+    }
+    public void createBoard() throws InterruptedException {
+        clickOnPlusButtonOnHeader();
+        selectCreateBoardFromDropDown();
+        String boardName = "My board";
+        fillBoardCreationForm
+                (new BoardData()
+                        .withBoardName(boardName)
+                        .withS("descr qa 21"));
+        click(By.cssSelector("._1vk4y48RR5OmqE"));
+        click(By.xpath("//span[contains(text(),'No team')]"));
+        confirmBoardCreation();
+        returnFromBoardToHomePage();
     }
 }

@@ -24,9 +24,11 @@ public class HelperBase {
         driver.findElement(locator).click();
     }
 
-    public void type(By locator, String text) {
+    public void type(By locator, String text) throws InterruptedException {
         if(text!= null){
+            Thread.sleep(3000);
             driver.findElement(locator).click();
+            Thread.sleep(5000);
             driver.findElement(locator).clear();
             driver.findElement(locator).sendKeys(text);
         }
@@ -43,7 +45,8 @@ public class HelperBase {
     }
 
     public void returnToHomePage()  {
-        waitForElementAndClick(By.cssSelector("[name=house]"),20);
+        waitElement(By.cssSelector("[name=house]"));
+        click(By.cssSelector("[name=house]"));
 
     }
 
@@ -51,4 +54,16 @@ public class HelperBase {
 
         click(By.cssSelector(".icon-add.icon-sm"));
     }
+
+public void waitElement(By locator){
+    int tries = 0;
+    while (!isElementPresent(locator) && tries<100){
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        tries++;
+    }
+}
 }
